@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Ejecutar sin depuración",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/a.out",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",  
+            "setupCommands": [],
+            "preLaunchTask": "compilar",
+            "linux": {
+                "program": "${workspaceFolder}/a.out"
+            }
+        }
+    ]
+}
