@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include <cmath>  // Necesario para sqrt()
+#include <cmath> //Necesario para sqrt()
 #include <iomanip>
 
 using namespace std;

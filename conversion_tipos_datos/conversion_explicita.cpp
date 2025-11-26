@@ -47,6 +47,7 @@ int main(){
   ss >> numero2; // convierte string a int
   cout << "conversión de string a entero: " << numero2 << endl;
 
+
   
 
 

@@ -1,142 +1,276 @@
 #include <iostream>
 #include <vector>
-#include <memory>
-#include <typeinfo>
+#include <string>
+using namespace std;
 
-// Palabras clave relacionadas con clases y herencia
-class Base {
+// Clase para demostrar class, public, private, protected
+class BaseClass {
+private:
+    int privateVar;
+protected:
+    int protectedVar;
 public:
-    virtual void foo() = 0; // Palabra clave 'virtual' y '= 0' para función pura
+    virtual void virtualFunc() {}
+    static int staticVar;
+    friend void friendFunc();
+    explicit BaseClass(int val) : privateVar(val) {}
+    virtual ~BaseClass() {}
 };
 
-class Derived : public Base { // Palabra clave 'class' y 'public'
+// struct y typedef
+struct MyStruct {
+    int x;
+    double y;
+};
+
+typedef int Integer;
+
+// union
+union MyUnion {
+    int i;
+    float f;
+    char c;
+};
+
+// enum y enum class
+enum Color { RED, GREEN, BLUE };
+enum class Status { ACTIVE, INACTIVE };
+
+// template
+template <typename T, class U>
+T templateFunc(T a, U b) {
+    return static_cast<T>(a + b);
+}
+
+// namespace
+namespace MyNamespace {
+    void func() {}
+}
+
+// Función con todas las palabras clave de control de flujo
+void controlFlow() {
+    // if, else
+    if (true) {
+        cout << "if" << endl;
+    } else if (false) {
+        cout << "else if" << endl;
+    } else {
+        cout << "else" << endl;
+    }
+
+    // switch, case, default, break
+    int x = 1;
+    switch (x) {
+        case 1:
+            cout << "case 1" << endl;
+            break;
+        case 2:
+            cout << "case 2" << endl;
+            break;
+        default:
+            cout << "default" << endl;
+            break;
+    }
+
+    // while
+    int i = 0;
+    while (i < 5) {
+        i++;
+        if (i == 3) continue;
+        if (i == 4) break;
+    }
+
+    // do-while
+    do {
+        cout << "do-while" << endl;
+    } while (false);
+
+    // for
+    for (int j = 0; j < 10; j++) {
+        if (j == 5) break;
+        if (j == 3) continue;
+    }
+
+    // Range-based for
+    vector<int> vec = {1, 2, 3};
+    for (auto& elem : vec) {
+        cout << elem << endl;
+    }
+
+    // goto
+    goto label;
+    label:
+    cout << "goto label" << endl;
+}
+
+// Función con try, catch, throw
+void exceptionHandling() {
+    try {
+        throw runtime_error("Error");
+    } catch (const exception& e) {
+        cout << e.what() << endl;
+    } catch (...) {
+        cout << "catch all" << endl;
+    }
+}
+
+// Clase derivada para demostrar inheritance
+class DerivedClass : public BaseClass {
 public:
-    void foo() override { // Palabra clave 'override'
-        std::cout << "Derived::foo()" << std::endl;
+    DerivedClass() : BaseClass(0) {}
+    
+    void virtualFunc() override final {
+        // override y final (C++11)
+    }
+    
+    void constFunc() const {
+        // const
+    }
+    
+    void volatileFunc() volatile {
+        // volatile
     }
 };
 
-// Palabras clave relacionadas con control de flujo
-void controlFlowExample() {
-    int x = 10;
-    if (x > 5) { // Palabra clave 'if'
-        std::cout << "x es mayor que 5" << std::endl;
-    } else { // Palabra clave 'else'
-        std::cout << "x es menor o igual a 5" << std::endl;
-    }
-
-    for (int i = 0; i < 5; ++i) { // Palabra clave 'for'
-        std::cout << "Iteración: " << i << std::endl;
-    }
-
-    while (x > 0) { // Palabra clave 'while'
-        std::cout << "x: " << x << std::endl;
-        x--;
-    }
-
-    do { // Palabra clave 'do'
-        std::cout << "x en do-while: " << x << std::endl;
-        x++;
-    } while (x < 5); // Palabra clave 'while'
-
-    switch (x) { // Palabra clave 'switch'
-        case 5: // Palabra clave 'case'
-            std::cout << "x es 5" << std::endl;
-            break; // Palabra clave 'break'
-        default: // Palabra clave 'default'
-            std::cout << "x no es 5" << std::endl;
-    }
+// Operadores y conversiones
+void operators() {
+    int a = 10;
+    int* ptr = &a;              // Operador &
+    int value = *ptr;           // Operador *
+    (void)value;                // Suprimir warning de variable no usada
+    
+    // sizeof
+    size_t size = sizeof(int);
+    
+    // new y delete
+    int* dynamic = new int(5);
+    delete dynamic;
+    
+    int* arr = new int[10];
+    delete[] arr;
+    
+    // const_cast, static_cast, dynamic_cast, reinterpret_cast
+    const int constVal = 10;
+    int* modifiable = const_cast<int*>(&constVal);
+    
+    double d = static_cast<double>(a);
+    
+    BaseClass* base = new DerivedClass();
+    DerivedClass* derived = dynamic_cast<DerivedClass*>(base);
+    
+    long addr = reinterpret_cast<long>(ptr);
+    
+    delete base;
+    
+    // typeid
+    const type_info& info = typeid(a);
 }
 
-// Palabras clave relacionadas con manejo de excepciones
-void exceptionExample() {
-    try { // Palabra clave 'try'
-        throw std::runtime_error("Error de ejemplo"); // Palabra clave 'throw'
-    } catch (const std::exception& e) { // Palabra clave 'catch'
-        std::cout << "Excepción capturada: " << e.what() << std::endl;
+// Especificadores de almacenamiento
+extern int externVar;
+static int staticVar = 0;
+// register int registerVar = 0;  // deprecated y no permitido en ámbito global
+thread_local int threadVar = 0;
+
+// mutable
+class MutableExample {
+    mutable int counter;
+public:
+    void increment() const {
+        counter++;  // permitido por mutable
     }
-}
-
-// Palabras clave relacionadas con tipos y modificadores
-void typeModifiersExample() {
-    const int y = 42; // Palabra clave 'const'
-    volatile int z = 10; // Palabra clave 'volatile'
-    static int counter = 0; // Palabra clave 'static'
-    counter++;
-    std::cout << "Contador estático: " << counter << std::endl;
-
-    auto lambda = []() { // Palabra clave 'auto' y '[]' para lambda
-        std::cout << "Lambda ejecutada" << std::endl;
-    };
-    lambda();
-}
-
-// Palabras clave relacionadas con memoria y punteros
-void memoryManagementExample() {
-    int* ptr = new int(10); // Palabra clave 'new'
-    std::cout << "Valor asignado dinámicamente: " << *ptr << std::endl;
-    delete ptr; // Palabra clave 'delete'
-
-    std::unique_ptr<int> smartPtr = std::make_unique<int>(20); // Uso de punteros inteligentes
-    std::cout << "Valor en puntero inteligente: " << *smartPtr << std::endl;
-}
-
-// Palabras clave relacionadas con plantillas
-template <typename T> // Palabra clave 'template' y 'typename'
-void templateExample(T value) {
-    std::cout << "Valor de la plantilla: " << value << std::endl;
-}
-
-// Palabras clave relacionadas con espacios de nombres
-namespace MyNamespace { // Palabra clave 'namespace'
-    void namespaceFunction() {
-        std::cout << "Función en MyNamespace" << std::endl;
-    }
-}
-
-// Palabras clave relacionadas con control de acceso
-class AccessControlExample {
-private: // Palabra clave 'private'
-    int privateVar = 1;
-
-protected: // Palabra clave 'protected'
-    int protectedVar = 2;
-
-public: // Palabra clave 'public'
-    int publicVar = 3;
 };
 
-// Palabras clave relacionadas con hilos (C++11 en adelante)
-#include <thread>
-void threadExample() {
-    std::thread t([]() { // Palabra clave 'thread'
-        std::cout << "Hilo en ejecución" << std::endl;
-    });
-    t.join(); // Palabra clave 'join'
+// inline
+inline int inlineFunc(int x) {
+    return x * 2;
 }
 
-// Palabras clave relacionadas con atributos (C++11 en adelante)
-[[nodiscard]] int mustUseReturnValue() { // Atributo '[[nodiscard]]'
-    return 42;
+// constexpr (C++11)
+constexpr int constexprFunc(int x) {
+    return x * x;
 }
 
+// noexcept (C++11)
+void noexceptFunc() noexcept {
+    // no lanza excepciones
+}
+
+// nullptr (C++11)
+void nullptrExample() {
+    int* ptr = nullptr;
+}
+
+// alignas y alignof (C++11)
+struct alignas(16) AlignedStruct {
+    int x;
+};
+
+// static_assert (C++11)
+static_assert(sizeof(int) == 4, "int debe ser de 4 bytes");
+
+// decltype (C++11)
+void decltypeExample() {
+    int x = 5;
+    decltype(x) y = 10;
+}
+
+// Función main
 int main() {
-    // Uso de palabras clave en main
-    Derived d;
-    d.foo();
-
-    controlFlowExample();
-    exceptionExample();
-    typeModifiersExample();
-    memoryManagementExample();
-    templateExample(3.14); // Uso de plantilla con double
-    MyNamespace::namespaceFunction();
-
-    AccessControlExample ace;
-    std::cout << "Variable pública: " << ace.publicVar << std::endl;
-
-    threadExample();
-    mustUseReturnValue(); // Advertencia si no se usa el valor de retorno
-
-    return 0; // Palabra clave 'return'
+    // auto (C++11)
+    auto autoVar = 42;
+    
+    // const y constexpr
+    const int CONSTANT = 100;
+    constexpr int COMPILE_TIME = 200;
+    
+    // bool, true, false
+    bool boolean = true;
+    boolean = false;
+    
+    // Tipos básicos
+    char character = 'a';
+    wchar_t wideChar = L'A';
+    char16_t char16 = u'B';
+    char32_t char32 = U'C';
+    
+    short shortInt = 1;
+    int integer = 2;
+    long longInt = 3L;
+    long long longLongInt = 4LL;
+    
+    signed int signedInt = -5;
+    unsigned int unsignedInt = 6u;
+    
+    float floatNum = 3.14f;
+    double doubleNum = 3.14159;
+    long double longDouble = 3.14159265L;
+    
+    void* voidPtr = nullptr;
+    
+    // this
+    class ThisExample {
+    public:
+        int value;
+        ThisExample* getThis() {
+            return this;
+        }
+    };
+    
+    // operator overloading
+    class OperatorExample {
+    public:
+        int operator+(const OperatorExample& other) {
+            return 0;
+        }
+    };
+    
+    // asm (inline assembly)
+    // asm("nop");
+    
+    controlFlow();
+    exceptionHandling();
+    operators();
+    
+    return 0;
 }

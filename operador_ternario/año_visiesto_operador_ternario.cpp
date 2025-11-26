@@ -15,7 +15,7 @@ int main()
   cout << "ingrese un año: ";
   cin >> año;
 
-  cout << año << ((año % 400 == 0 && año % 100 != 0 ) || (año % 4 == 0) ? " ES bisiesto" : " No es bisiesto") << endl;
+  cout << año << ((año % 400 == 0 && año % 100 != 0) || (año % 4 == 0) ? " ES bisiesto" : " No es bisiesto") << endl;
 
   return 0;
 }

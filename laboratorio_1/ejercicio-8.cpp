@@ -5,22 +5,22 @@ Ej: si se ingresa 5: 5!=1*2*3*4*5=120, por lo que se debe imprimir:
 5!=120
 */
 
-#include <iostream>
 
+
+#include <iostream>
 using namespace std;
 
-int main()
-{
+int main(){
+
   int numero, factorial = 1;
 
   cout << "Ingrese un número: ";
   cin >> numero;
 
-  for (int i = 1; i <= numero; i++){
-
+  for (int i = 1; i <= numero; i++)
+  {
     factorial = factorial * i;
   }
 
-  cout << "El factorial de " << numero << "! = " << factorial << endl;
   return 0;
 }

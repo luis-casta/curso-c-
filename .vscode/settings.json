@@ -44,7 +44,8 @@
     "ostream": "cpp",
     "stdexcept": "cpp",
     "streambuf": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "variant": "cpp"
   },
   "a-file-icon-vscode.folderColor": "#676e95",
   "C_Cpp_Runner.cCompilerPath": "gcc",
